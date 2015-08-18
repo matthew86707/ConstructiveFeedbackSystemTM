@@ -61,6 +61,9 @@ public class MainActivity extends Activity {
     }
     public void submitRating(View v){
 
+        ratingFun = (RatingBar) findViewById(R.id.ratingBar);
+        ratingLearn = (RatingBar) findViewById(R.id.ratingBar2);
+
         //Called when submit button is pressed
 
         //If rating has not been entered...

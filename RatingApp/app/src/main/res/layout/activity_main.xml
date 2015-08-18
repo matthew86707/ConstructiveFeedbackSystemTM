@@ -9,27 +9,27 @@
 
     <TextView android:text="Rate Your Class!" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="32dp"
-        android:id="@+id/textView" />
-
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ratingBar"
-        android:layout_marginTop="84dp"
-        android:layout_below="@+id/textView"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:layout_below="@+id/textView2"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="41dp" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ratingBar2"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="126dp" />
+        android:layout_below="@+id/textView3"
+        android:layout_alignStart="@+id/ratingBar"
+        android:layout_marginTop="50dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
         android:id="@+id/textView2"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp" />
+        android:layout_marginTop="59dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
         android:textSize="20dp"
         android:text="How Much Did You Learn?"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/ratingBar2" />
 
     <Button
         android:layout_width="wrap_content"
