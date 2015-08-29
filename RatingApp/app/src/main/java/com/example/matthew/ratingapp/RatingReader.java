@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
  */
 public class RatingReader {
 
+    // TODO: good. but can we put more stuff here like "An error occured while reading data" = ErrorMessage
     public static String FILE_NAME = "saveData";
 
     public static void readRatings(View v) {
