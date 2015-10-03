@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 
 public class RatingSaver {
     public static void saveRating(float fun, float learn, Context app){
+        DataBaseFunctions d = new DataBaseFunctions();
+        d.pushRatings(fun, learn);
         try {
             FileOutputStream fos = app.openFileOutput(Data.FILE_NAME, Context.MODE_APPEND);
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
