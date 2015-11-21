@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
@@ -85,10 +86,10 @@ public class GoogleCalendar {
         @Override
         protected List<String> doInBackground(Void... params) {
             try {
-                return getDataFromApi();
-//                List<String> prints = new ArrayList<String>();
-//                prints.add(String.format("%s (%s)", getCurrentClass().getSummary()));
-//                return prints;
+//                return getDataFromApi();
+                List<String> prints = new ArrayList<String>();
+                prints.add(getCurrentClass().getSummary());
+                return prints;
             } catch (Exception e) {
                 mLastError = e;
                 cancel(true);
@@ -136,14 +137,20 @@ public class GoogleCalendar {
                     .setSingleEvents(true)
                     .execute();
             List<Event> items = events.getItems();
-            for (int i = 0; i <= 5; i++) {
-                DateTime end = items.get(i).getEnd().getDateTime();
-                DateTime start = items.get(i).getStart().getDateTime();
-                if (end.getValue() > now.getValue() && start.getValue() < now.getValue() &&
-                        items.get(i).getDescription().charAt(0) == '[') {
-                    return items.get(i);
+            Log.w("RUOYA","Events Searched, found " + items.size() + " items.");
+            for (Event event: items) {
+                DateTime end = event.getEnd().getDateTime();
+                DateTime start = event.getStart().getDateTime();
+                Log.w("RUOYA","This event is called " + event.getSummary());
+                if (start == null) {
+                    //all day event -> not a class
+                }  else if (end.getValue() > now.getValue() && start.getValue() < now.getValue() &&
+                        event.getSummary().charAt(0) == '[') {
+                    Log.w("RUOYA","Event Found");
+                    return event;
                 }
             }
+            Log.w("RUOYA","No Event Found");
             return null;
         }
 
