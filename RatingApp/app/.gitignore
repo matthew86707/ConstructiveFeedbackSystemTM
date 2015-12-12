@@ -1,7 +1,10 @@
-/build
+
 
 # Generated build files
 #######################
+
+/build
+*.class
  
 # Compiled Source #
 ###################
