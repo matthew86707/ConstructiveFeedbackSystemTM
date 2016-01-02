@@ -21,7 +21,9 @@ public class DataBaseFunctions {
 
     RequestQueue requestQueue;
 
-    public void pushRatings(final float ratingFun, final float ratingLearn){
+
+
+    public void pushRatings(final float ratingFun, final float ratingLearn, final String teacher){
 
         requestQueue = Volley.newRequestQueue(MainActivity.context);
         StringRequest request = new StringRequest(Request.Method.POST, "http://feedback.jointheleague.org/addRating.php", new Response.Listener<String>() {
@@ -42,6 +44,10 @@ public class DataBaseFunctions {
                 Map<String,String> parameters  = new HashMap<String, String>();
                 parameters.put("informationRating",ratingLearn +"");
                 parameters.put("funRating",ratingFun + "");
+                parameters.put("teacher", "und");
+
+
+
 
                 return parameters;
             }

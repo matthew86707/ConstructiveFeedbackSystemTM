@@ -64,6 +64,26 @@ public class MainActivity extends Activity {
         return item.getItemId() == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.teacher_menu, menu);
+    }
+
+
+
+    @Override
+public boolean onContextItemSelected(MenuItem item){
+	switch (item.getItemId()){
+	
+	case R.id.id_Site:
+	item.setChecked(true);
+	return true;
+
+}
+}
+
     public void submitRating(View v){
 
         ratingFun = (RatingBar) findViewById(R.id.ratingBar);
@@ -84,6 +104,10 @@ public class MainActivity extends Activity {
             badRatingNum = -1;
             ToastStuff.createToast("Fun : " + ratingFun.getRating() + " Learn : " + ratingLearn.getRating(), MainActivity.this);
         }
+
+        registerForContextMenu(view);
+        openContextMenu(view);
+
         RatingSaver.saveRating(ratingFun.getRating(), ratingLearn.getRating(), getApplication());
 
         ratingFun.setRating(0.0f);

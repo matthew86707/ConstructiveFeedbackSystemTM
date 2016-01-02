@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 
 public class RatingSaver {
     public static void saveRating(float fun, float learn, Context app){
+        //Open Toast for Teacher Selection
         DataBaseFunctions d = new DataBaseFunctions();
         d.pushRatings(fun, learn);
         try {
