@@ -7,10 +7,10 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 
 public class RatingSaver {
-    public static void saveRating(float fun, float learn, Context app){
+    public static void saveRating(float fun, float learn, String teach, Context app){
         //Open Toast for Teacher Selection
         DataBaseFunctions d = new DataBaseFunctions();
-        d.pushRatings(fun, learn);
+        d.pushRatings(fun, learn, teach);
         try {
             FileOutputStream fos = app.openFileOutput(Data.FILE_NAME, Context.MODE_APPEND);
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));

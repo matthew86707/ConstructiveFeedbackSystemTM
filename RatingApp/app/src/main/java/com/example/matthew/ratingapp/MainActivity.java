@@ -7,7 +7,9 @@ package com.example.matthew.ratingapp;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RatingBar;
@@ -18,6 +20,10 @@ import java.io.OutputStreamWriter;
 
 
 public class MainActivity extends Activity {
+
+    public static String teacherSelected = "None";
+    public static float funSelected;
+    public static float infoSelected;
 
     public static Context context;
     public String badRatings[] = {
@@ -77,11 +83,24 @@ public class MainActivity extends Activity {
 public boolean onContextItemSelected(MenuItem item){
 	switch (item.getItemId()){
 	
-	case R.id.id_Site:
-	item.setChecked(true);
+	    case R.id.id_Site:
+        teacherSelected = "Site";
+        RatingSaver.saveRating(funSelected, infoSelected, teacherSelected, getApplication());
+	    item.setChecked(true);
+
+        case R.id.id_Dave:
+            teacherSelected = "Dave";
+            RatingSaver.saveRating(funSelected, infoSelected, teacherSelected, getApplication());
+            item.setChecked(true);
+
+        case R.id.id_June:
+            teacherSelected = "June";
+            RatingSaver.saveRating(funSelected, infoSelected, teacherSelected, getApplication());
+            item.setChecked(true);
 	return true;
 
 }
+        return true;
 }
 
     public void submitRating(View v){
@@ -105,10 +124,11 @@ public boolean onContextItemSelected(MenuItem item){
             ToastStuff.createToast("Fun : " + ratingFun.getRating() + " Learn : " + ratingLearn.getRating(), MainActivity.this);
         }
 
-        registerForContextMenu(view);
-        openContextMenu(view);
+        registerForContextMenu(v);
+        openContextMenu(v);
 
-        RatingSaver.saveRating(ratingFun.getRating(), ratingLearn.getRating(), getApplication());
+        funSelected = ratingFun.getRating();
+        infoSelected = ratingLearn.getRating();
 
         ratingFun.setRating(0.0f);
         ratingLearn.setRating(0.0f);

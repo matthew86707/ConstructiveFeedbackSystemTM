@@ -44,7 +44,7 @@ public class DataBaseFunctions {
                 Map<String,String> parameters  = new HashMap<String, String>();
                 parameters.put("informationRating",ratingLearn +"");
                 parameters.put("funRating",ratingFun + "");
-                parameters.put("teacher", "und");
+                parameters.put("teacher", teacher);
 
 
 
