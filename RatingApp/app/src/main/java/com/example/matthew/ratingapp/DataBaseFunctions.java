@@ -2,6 +2,7 @@ package com.example.matthew.ratingapp;
 
 import android.app.Application;
 import android.app.DownloadManager;
+import android.os.Debug;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -13,6 +14,8 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
+
+
 
 /**
  * Created by Matthew on 9/30/2015.
@@ -45,8 +48,6 @@ public class DataBaseFunctions {
                 parameters.put("informationRating",ratingLearn +"");
                 parameters.put("funRating",ratingFun + "");
                 parameters.put("teacher", teacher);
-
-
 
 
                 return parameters;

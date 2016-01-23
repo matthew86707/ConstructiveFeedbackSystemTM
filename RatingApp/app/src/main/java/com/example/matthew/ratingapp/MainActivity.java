@@ -5,8 +5,12 @@
 package com.example.matthew.ratingapp;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Debug;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,9 +18,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RatingBar;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
 
 
 public class MainActivity extends Activity {
@@ -24,6 +39,10 @@ public class MainActivity extends Activity {
     public static String teacherSelected = "None";
     public static float funSelected;
     public static float infoSelected;
+
+    public static MenuItem a;
+    public static MenuItem b;
+    public static MenuItem c;
 
     public static Context context;
     public String badRatings[] = {
@@ -53,6 +72,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
+
     }
 
     @Override
@@ -71,8 +91,43 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+    public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         super.onCreateContextMenu(menu, v, menuInfo);
+      //  a = (MenuItem) findViewById(R.id.id_Teacher1);
+       // b = (MenuItem) findViewById(R.id.id_Teacher2);
+       // c = (MenuItem) findViewById(R.id.id_Teacher3);
+//        try {
+//            URL u = new URL("http://feedback.jointheleague.org/getTeachers.php");
+//            URLConnection connection = u.openConnection();
+//            connection.setConnectTimeout(5000);
+//            connection.setReadTimeout(5000);
+//            connection.connect();
+//
+//            // Read and store the result line by line then return the entire string.
+//            InputStream in = connection.getInputStream();
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+//            StringBuilder html = new StringBuilder();
+//            for (int i = 0; i < 3; i++) {
+//                String s = reader.readLine();
+//                if (i == 0) {
+//                    a.setTitle(s);
+//                }
+//                if (i == 1) {
+//                    b.setTitle(s);
+//                }
+//                if (i == 2) {
+//                    c.setTitle(s);
+//                }
+//            }
+//            in.close();
+//        }catch (IOException e){
+//            Log.v("WPW", e.toString());
+//        }
+//        a.setTitle("June");
+//        b.setTitle("Site");
+//        c.setTitle("Dave");
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.teacher_menu, menu);
     }
@@ -83,18 +138,21 @@ public class MainActivity extends Activity {
 public boolean onContextItemSelected(MenuItem item){
 	switch (item.getItemId()){
 	
-	    case R.id.id_Site:
-        teacherSelected = "Site";
+	    case R.id.id_Teacher1:
+       // teacherSelected = a.getTitle() + "";
+            teacherSelected = "Site";
         RatingSaver.saveRating(funSelected, infoSelected, teacherSelected, getApplication());
 	    item.setChecked(true);
 
-        case R.id.id_Dave:
-            teacherSelected = "Dave";
+        case R.id.id_Teacher2:
+            //teacherSelected = b.getTitle() + "";
+            teacherSelected = "June";
             RatingSaver.saveRating(funSelected, infoSelected, teacherSelected, getApplication());
             item.setChecked(true);
 
-        case R.id.id_June:
-            teacherSelected = "June";
+        case R.id.id_Teacher3:
+            teacherSelected = "Dave";
+            //teacherSelected = c.getTitle() + "";
             RatingSaver.saveRating(funSelected, infoSelected, teacherSelected, getApplication());
             item.setChecked(true);
 	return true;
@@ -119,19 +177,22 @@ public boolean onContextItemSelected(MenuItem item){
             }
 
         } else {
+            registerForContextMenu(v);
+            openContextMenu(v);
+
+            funSelected = ratingFun.getRating();
+            infoSelected = ratingLearn.getRating();
+
+            ToastStuff.createToast("Fun : " + ratingFun.getRating() + " Learn : " + ratingLearn.getRating(), MainActivity.this);
+
+            ratingFun.setRating(0.0f);
+            ratingLearn.setRating(0.0f);
             //Show a toast with the rating information...
             badRatingNum = -1;
-            ToastStuff.createToast("Fun : " + ratingFun.getRating() + " Learn : " + ratingLearn.getRating(), MainActivity.this);
+
         }
 
-        registerForContextMenu(v);
-        openContextMenu(v);
 
-        funSelected = ratingFun.getRating();
-        infoSelected = ratingLearn.getRating();
-
-        ratingFun.setRating(0.0f);
-        ratingLearn.setRating(0.0f);
     }
 
     public void clearRating(View v){
