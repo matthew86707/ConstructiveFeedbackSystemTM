@@ -1,4 +1,2 @@
-Test commit
+Project has moved: https://github.com/matthew86707/RatingApp
 
--By Russ
-Test Change 2
